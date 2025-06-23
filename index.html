@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>African Herbal Medicine for Depression - Scientific Analysis</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .main-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+            border-left: 5px solid #3498db;
+        }
+        .section h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.8em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .herb-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .herb-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #e74c3c;
+            transition: transform 0.3s ease;
+        }
+        .herb-card:hover {
+            transform: translateY(-5px);
+        }
+        .herb-card h3 {
+            color: #e74c3c;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        .herb-card h4 {
+            color: #2c3e50;
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+        }
+        .herb-card ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .herb-card li {
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+        .mechanism-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .mechanism-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #27ae60;
+        }
+        .mechanism-card h4 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+        .chat-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 30px;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .user-message {
+            background-color: #e3f2fd;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+        .bot-message {
+            background-color: #f1f1f1;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+        }
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background-color: #f9f9f9;
+        }
+        #user-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        #send-button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        #send-button:hover {
+            background-color: #2980b9;
+        }
+        #send-button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .typing-indicator {
+            display: none;
+            padding: 10px 15px;
+            background-color: #f1f1f1;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            max-width: 70%;
+            border-bottom-left-radius: 5px;
+        }
+        .typing-dots {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #888;
+            margin-right: 4px;
+            animation: typing 1.4s infinite both;
+        }
+        .typing-dots:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-dots:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+        .research-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .research-highlight h3 {
+            margin-top: 0;
+        }
+        .safety-warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .safety-warning h4 {
+            margin-top: 0;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>African Herbal Medicine for Depression</h1>
+            <p>Scientific Analysis of Traditional Therapeutic Approaches</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>Introduction</h2>
+                <p>Major depressive disorder (MDD) affects approximately 280 million people worldwide, representing a significant global health challenge. While conventional antidepressants remain the primary treatment modality, their limitations—including delayed onset of action, side effects, and treatment resistance—have prompted interest in alternative therapeutic approaches.</p>
+                
+                <p>African traditional medicine offers a rich repository of plant-based remedies that have been used for centuries to address mood disorders. This analysis examines the scientific evidence supporting the use of African herbal medicines in depression treatment, focusing on their traditional applications, active constituents, pharmacological mechanisms, and clinical efficacy.</p>
+            </div>
+
+            <div class="section">
+                <h2>Core Therapeutic Principles</h2>
+                <p>African herbal medicine employs sophisticated therapeutic strategies that address depression through multiple pathways:</p>
+                
+                <div class="mechanism-grid">
+                    <div class="mechanism-card">
+                        <h4>Primary Therapeutic Agents</h4>
+                        <p>Core herbs that directly target the primary symptoms of depression through monoamine modulation and neurotransmitter enhancement.</p>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>Supportive Therapeutic Agents</h4>
+                        <p>Herbs that enhance the effects of primary agents and provide additional therapeutic benefits through complementary mechanisms.</p>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>Modulatory Agents</h4>
+                        <p>Herbs that regulate and balance the overall therapeutic response, ensuring optimal efficacy and minimizing adverse effects.</p>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>Synergistic Enhancers</h4>
+                        <p>Herbs that potentiate the therapeutic effects of other components and improve bioavailability and absorption.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Key African Medicinal Plants</h2>
+                <div class="herb-grid">
+                    <div class="herb-card">
+                        <h3>Griffonia simplicifolia</h3>
+                        <h4>Primary Therapeutic Agent</h4>
+                        <ul>
+                            <li><strong>Active Constituent:</strong> 5-hydroxytryptophan (5-HTP)</li>
+                            <li><strong>Mechanism:</strong> Direct serotonin precursor</li>
+                            <li><strong>Clinical Evidence:</strong> Meta-analysis of 15 studies (511 participants) found significant efficacy over placebo</li>
+                            <li><strong>Onset:</strong> Faster than conventional SSRIs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="herb-card">
+                        <h3>Leonotis leonurus</h3>
+                        <h4>Supportive Therapeutic Agent</h4>
+                        <ul>
+                            <li><strong>Active Constituent:</strong> Leonurine (labdane diterpene)</li>
+                            <li><strong>Mechanism:</strong> Selective serotonin reuptake inhibition</li>
+                            <li><strong>Clinical Evidence:</strong> Randomized trial with 60 participants showed significant improvement</li>
+                            <li><strong>Additional Benefits:</strong> GABAergic activity for anxiolytic effects</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="herb-card">
+                        <h3>Artemisia afra</h3>
+                        <h4>Modulatory Agent</h4>
+                        <ul>
+                            <li><strong>Active Constituents:</strong> Essential oils (1,8-cineole, α-thujone)</li>
+                            <li><strong>Mechanism:</strong> GABAergic activity, monoamine oxidase inhibition</li>
+                            <li><strong>Traditional Use:</strong> Depression, anxiety, spiritual cleansing</li>
+                            <li><strong>Preclinical Evidence:</strong> Antidepressant-like effects in animal models</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="herb-card">
+                        <h3>Ocimum gratissimum</h3>
+                        <h4>Synergistic Enhancer</h4>
+                        <ul>
+                            <li><strong>Active Constituents:</strong> Eugenol, thymol, flavonoids</li>
+                            <li><strong>Mechanism:</strong> GABAergic activity, antioxidant properties</li>
+                            <li><strong>Preclinical Evidence:</strong> Effects comparable to fluoxetine</li>
+                            <li><strong>Role:</strong> Enhances bioavailability and therapeutic effects</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="herb-card">
+                        <h3>Aframomum melegueta</h3>
+                        <h4>Supportive Therapeutic Agent</h4>
+                        <ul>
+                            <li><strong>Active Constituents:</strong> 6-paradol, 6-gingerol</li>
+                            <li><strong>Mechanism:</strong> Endorphin release, GABAergic modulation</li>
+                            <li><strong>Traditional Use:</strong> Mood enhancement, spiritual practices</li>
+                            <li><strong>Preclinical Evidence:</strong> Antidepressant-like effects in animal models</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="herb-card">
+                        <h3>Mucuna pruriens</h3>
+                        <h4>Modulatory Agent</h4>
+                        <ul>
+                            <li><strong>Active Constituent:</strong> L-DOPA</li>
+                            <li><strong>Mechanism:</strong> Dopaminergic enhancement</li>
+                            <li><strong>Clinical Evidence:</strong> Demonstrated efficacy in Parkinson's disease</li>
+                            <li><strong>Role:</strong> Addresses dopaminergic component of depression</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Pharmacological Mechanisms</h2>
+                <div class="mechanism-grid">
+                    <div class="mechanism-card">
+                        <h4>Monoamine Modulation</h4>
+                        <ul>
+                            <li>Serotonin enhancement through direct precursors</li>
+                            <li>Dopamine modulation via L-DOPA</li>
+                            <li>Norepinephrine effects through noradrenergic activity</li>
+                        </ul>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>GABAergic Activity</h4>
+                        <ul>
+                            <li>GABA receptor modulation</li>
+                            <li>GABA transaminase inhibition</li>
+                            <li>Anxiolytic effects complementing antidepressant action</li>
+                        </ul>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>Anti-inflammatory Effects</h4>
+                        <ul>
+                            <li>Addressing inflammatory component of depression</li>
+                            <li>Reducing oxidative stress</li>
+                            <li>Neuroprotective properties</li>
+                        </ul>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>Neuroprotective Effects</h4>
+                        <ul>
+                            <li>BDNF enhancement</li>
+                            <li>Hippocampal neurogenesis promotion</li>
+                            <li>Synaptic plasticity improvement</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="research-highlight">
+                <h3>Clinical Evidence Summary</h3>
+                <p><strong>Systematic Review Findings:</strong> Analysis of 12 clinical studies of African herbs for depression revealed 8 studies with positive results. The most robust evidence exists for Griffonia simplicifolia (5-HTP), with meta-analysis showing significant efficacy over placebo in treating depression.</p>
+                <p><strong>Comparative Efficacy:</strong> Some studies suggest comparable efficacy to conventional SSRIs, with potentially faster onset of action for certain herbal preparations.</p>
+            </div>
+
+            <div class="section">
+                <h2>Safety and Tolerability</h2>
+                <div class="safety-warning">
+                    <h4>Important Safety Considerations</h4>
+                    <ul>
+                        <li><strong>Drug Interactions:</strong> Serotonergic herbs may interact with SSRIs, SNRIs, and MAOIs</li>
+                        <li><strong>Pregnancy/Lactation:</strong> Limited safety data available</li>
+                        <li><strong>Liver Disease:</strong> Some herbs may affect liver function</li>
+                        <li><strong>Bipolar Disorder:</strong> Use cautiously due to potential mood effects</li>
+                    </ul>
+                </div>
+                <p>African herbal medicines generally demonstrate good tolerability, with most adverse effects being mild and transient. Gastrointestinal effects are most common with 5-HTP, while sedation and dizziness may occur with GABAergic herbs.</p>
+            </div>
+
+            <div class="section">
+                <h2>Future Research Directions</h2>
+                <div class="mechanism-grid">
+                    <div class="mechanism-card">
+                        <h4>Clinical Research Priorities</h4>
+                        <ul>
+                            <li>Large-scale, well-designed clinical trials</li>
+                            <li>Long-term safety and efficacy studies</li>
+                            <li>Head-to-head comparisons with conventional treatments</li>
+                        </ul>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>Mechanistic Research</h4>
+                        <ul>
+                            <li>Further investigation of mechanisms of action</li>
+                            <li>Pharmacokinetic studies</li>
+                            <li>Drug interaction investigations</li>
+                        </ul>
+                    </div>
+                    <div class="mechanism-card">
+                        <h4>Development of Novel Therapeutics</h4>
+                        <ul>
+                            <li>Isolation of novel antidepressant compounds</li>
+                            <li>Synthetic derivatives with improved properties</li>
+                            <li>Standardized combination therapies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-header">
+                    African Herbal Medicine Research Assistant
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="typing-indicator" id="typing-indicator">
+                        <span class="typing-dots"></span>
+                        <span class="typing-dots"></span>
+                        <span class="typing-dots"></span>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="user-input" placeholder="Ask about African herbal medicine for depression..." autocomplete="off">
+                    <button id="send-button" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = "sk-2e6cf491953a40dfa7a0cc560632bd80";
+        const API_URL = "https://api.deepseek.com/v1/chat/completions";
+        
+        const chatMessages = document.getElementById("chat-messages");
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-button");
+        const typingIndicator = document.getElementById("typing-indicator");
+        
+        // Send message on Enter key
+        userInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+        
+        // Add message to chat interface
+        function addMessage(role, content) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message");
+            messageDiv.classList.add(role + "-message");
+            messageDiv.textContent = content;
+            chatMessages.insertBefore(messageDiv, typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Send message to DeepSeek API
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+            
+            // Disable input and button
+            userInput.disabled = true;
+            sendButton.disabled = true;
+            
+            // Show user message
+            addMessage("user", message);
+            userInput.value = "";
+            
+            // Show typing indicator
+            typingIndicator.style.display = "block";
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            try {
+                const systemPrompt = `You are a scientific expert on African herbal medicine for depression treatment. You have extensive knowledge of:
+
+1. Traditional African medicinal plants used for depression (Griffonia simplicifolia, Leonotis leonurus, Artemisia afra, Ocimum gratissimum, Aframomum melegueta, Mucuna pruriens)
+2. Pharmacological mechanisms including monoamine modulation, GABAergic activity, anti-inflammatory effects, and neuroprotective properties
+3. Clinical evidence and research findings
+4. Safety considerations and drug interactions
+5. Therapeutic principles similar to traditional medicine systems (primary agents, supportive agents, modulatory agents, synergistic enhancers)
+
+Provide scientific, evidence-based responses about African herbal medicine for depression. Be thorough but concise. Always mention safety considerations when discussing treatment options.`;
+
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "deepseek-chat",
+                        messages: [
+                            { role: "system", content: systemPrompt },
+                            { role: "user", content: message }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 2000
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`API request failed: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const botResponse = data.choices[0].message.content;
+                
+                // Hide typing indicator and show bot response
+                typingIndicator.style.display = "none";
+                addMessage("bot", botResponse);
+            } catch (error) {
+                typingIndicator.style.display = "none";
+                addMessage("bot", `Sorry, an error occurred: ${error.message}`);
+                console.error("API request error:", error);
+            } finally {
+                // Re-enable input and button
+                userInput.disabled = false;
+                sendButton.disabled = false;
+                userInput.focus();
+            }
+        }
+        
+        // Initial welcome message
+        window.onload = function() {
+            addMessage("bot", "Hello! I'm your African Herbal Medicine Research Assistant. I can help you with questions about traditional African plants used for depression treatment, their mechanisms of action, clinical evidence, and safety considerations. What would you like to know?");
+        };
+    </script>
+</body>
+</html>
